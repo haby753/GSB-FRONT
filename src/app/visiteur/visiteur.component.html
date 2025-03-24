@@ -1,0 +1,82 @@
+<div class="container mt-5">
+  <!-- Titre Principal -->
+  <div class="title-box text-center mb-4">
+    <h2><i class="bi bi-people-fill"></i> Gestion des Visiteurs et Fiches de Frais</h2>
+  </div>
+
+  <!-- Tableau des Visiteurs -->
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Adresse</th>
+          <th>Ville</th>
+          <th>Code Postal</th>
+          <th>Date Embauche</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let visiteur of visiteurs" class="table-row">
+          <td>{{ visiteur.id }}</td>
+          <td>{{ visiteur.nom }}</td>
+          <td>{{ visiteur.prenom }}</td>
+          <td>{{ visiteur.adresse }}</td>
+          <td>{{ visiteur.ville }}</td>
+          <td>{{ visiteur.cp }}</td>
+          <td>{{ visiteur.dateEmbauche | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="supprimerVisiteur(visiteur)">
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section des Fiches de Frais -->
+  <div class="title-box text-center mt-5 mb-4">
+    <h2><i class="bi bi-receipt"></i> Fiches de Frais des Visiteurs</h2>
+  </div>
+
+  <div class="accordion" id="accordionFiches">
+    <div class="accordion-item" *ngFor="let visiteur of visiteurs">
+      <h2 class="accordion-header" id="heading{{ visiteur.id }}">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#collapse' + visiteur.id"
+          aria-expanded="true"
+          [attr.aria-controls]="'collapse' + visiteur.id">
+          <strong>{{ visiteur.nom }} {{ visiteur.prenom }}</strong>
+        </button>
+      </h2>
+
+      <div [id]="'collapse' + visiteur.id" class="accordion-collapse collapse" data-bs-parent="#accordionFiches">
+        <div class="accordion-body">
+          <table class="table table-bordered table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Montant (€)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fiche of visiteur.fichesFrais">
+                <td>{{ fiche.id }}</td>
+                <td>{{ fiche.date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ fiche.montantvalide| currency:'EUR' }}</td>
+              </tr>
+           <!--  <tr *ngIf="visiteur.fichesFrais.length === 0">
+                <td colspan="3" class="text-center text-muted">Aucune fiche de frais disponible</td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

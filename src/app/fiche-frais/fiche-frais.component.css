@@ -1,0 +1,274 @@
+/* Reset + base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #34495e; /* Bleu foncé élégant */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 16px;
+  color: #6c6cbd; /* Texte clair */
+}
+
+/* Container principal */
+.container {
+  background: linear-gradient(145deg, #4a6d85, #5d8b9c); /* Dégradé fluide entre bleu et vert pastel */
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); /* Ombres accentuées pour un effet de profondeur */
+  padding: 60px;
+  max-width: 800px; /* Taille agrandie */
+  width: 100%;
+  margin: 30px;
+  animation: fadeInUp 1s ease-in-out;
+  border: 1px solid #5d8b9c; /* Bordure plus fine mais visible */
+}
+
+/* Titre */
+h2 {
+  font-size: 38px; /* Taille plus grande */
+  color: #eaf2f8; /* Bleu clair apaisant */
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Ombre douce pour le titre */
+}
+
+/* Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Label */
+label {
+  font-size: 18px; /* Plus grand pour la lisibilité */
+  color: #eaf2f8;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+/* Inputs et selects */
+input,
+select,
+textarea {
+  padding: 18px 22px;
+  font-size: 18px;
+  border: 2px solid #85c1ae;
+  border-radius: 15px; /* Coins arrondis pour une interface plus douce */
+  background: #f1f8fc;
+  transition: all 0.3s ease;
+  width: 100%;
+  color: #2c3e50;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 12px rgba(41, 128, 185, 0.6);
+  background: #ffffff;
+}
+
+/* Sélecteur */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23333'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20class='feather%20feather-chevron-down'%3E%3Cpolyline%20points='6%209%2012%2015%2018%209'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 20px;
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 130px;
+  padding: 18px 22px;
+  font-size: 18px;
+}
+
+/* 🎨 Variables personnalisées pour rester cohérent avec Bootstrap */
+:root {
+  --bs-primary: #4b7bec;
+  --bs-secondary: #a5b1c2;
+  --bs-success: #2ecc71;
+  --bs-warning: #f1c40f;
+  --bs-danger: #e74c3c;
+  --bs-light: #f8f9fa;
+  --bs-dark: #2d3436;
+  --bs-body-bg: #f4f6f9;
+}
+
+/* 🧼 Base clean */
+body {
+  background-color: var(--bs-body-bg);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--bs-dark);
+}
+
+/* 📦 Container amélioré */
+.container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 🏷️ Titre centré */
+h3.text-center {
+  font-size: 2.2rem;
+  color: var(--bs-primary);
+  font-weight: 700;
+}
+
+/* 📊 Tableau stylé */
+.table {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  background-color: var(--bs-primary);
+  color: white;
+  font-weight: 600;
+}
+
+.table td,
+.table th {
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+/* 🎯 Boutons avec un look moderne */
+.btn {
+  border-radius: 2rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn i {
+  margin-right: 5px;
+}
+
+/* Hover customisé */
+.btn-info:hover {
+  background-color: #3867d6;
+}
+
+.btn-warning:hover {
+  background-color: #e1b400;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+/* 🌀 Effet sur les lignes */
+.table-hover tbody tr:hover {
+  background-color: #f1f2f6;
+  transition: background-color 0.3s ease;
+}
+
+/* 📢 Alerte vide plus visible */
+.alert-warning {
+  font-size: 1.1rem;
+  background-color: #fff8e1;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+}
+
+
+/* Bouton "Nouvelle fiche" */
+button[type="submit"] {
+  background: linear-gradient(145deg, #76D7C4, #2980B9); /* Dégradé bleu ciel */
+  color: white;
+  font-size: 22px;
+  padding: 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(222, 213, 213, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(145deg, #2d95b6, #1f618d); /* Effet de hover bleu plus accentué */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(254, 255, 255, 0.45);
+}
+
+button[type="submit"]:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+/* Hover effect on labels */
+label:hover {
+  color: #76D7C4;
+  transform: translateX(8px);
+}
+
+/* Validation */
+input:valid,
+textarea:valid {
+  border-color: #2980b9;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 35px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  label {
+    font-size: 16px;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 16px 18px;
+  }
+
+  button[type="submit"] {
+    font-size: 20px;
+    padding: 18px;
+  }
+}

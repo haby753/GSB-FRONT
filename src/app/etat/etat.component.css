@@ -1,0 +1,148 @@
+body {
+  background: linear-gradient(135deg, #d0f0ff, #a0e1ff);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.etat-card {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  color: #05668d;
+  transition: transform 0.5s, box-shadow 0.5s;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.etat-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 50px 80px rgba(0, 0, 0, 0.3);
+}
+
+.etat-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2), transparent);
+  transition: transform 0.5s;
+  z-index: 0;
+}
+
+.etat-card:hover::before {
+  transform: rotate(30deg);
+}
+
+.etat-card h2,
+.etat-card h3 {
+  color: #0288d1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  border-left: 4px solid #0288d1;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.etat-card ul {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.etat-card li {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s, box-shadow 0.4s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.etat-card li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.etat-card li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background: #0288d1;
+  border-radius: 15px 0 0 15px;
+}
+
+.etat-card button {
+  background: linear-gradient(145deg, #0288d1, #0277bd);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 10px 5px 0 0;
+  box-shadow: 0 10px 20px rgba(2, 136, 209, 0.4);
+}
+
+.etat-card button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 30px rgba(2, 119, 189, 0.5);
+}
+
+.etat-card input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  margin: 20px 0;
+  border: 1px solid #82b1ff;
+  border-radius: 30px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.etat-card input[type="text"]:focus {
+  outline: none;
+  border-color: #0288d1;
+  box-shadow: 0 0 15px #0288d1;
+}
+
+.etat-card .selected {
+  background: rgba(0, 137, 208, 0.1);
+  border-left: 5px solid #0288d1;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}

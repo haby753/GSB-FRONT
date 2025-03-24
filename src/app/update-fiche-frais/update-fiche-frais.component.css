@@ -1,0 +1,160 @@
+/* Conteneur principal avec un fond clair, des bordures arrondies et une ombre douce */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(30px);
+}
+
+/* Titre du formulaire avec un contraste subtil */
+h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Alignement du formulaire en colonnes avec de l'espace */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Espacement des champs de formulaire */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Style des labels avec un contraste et une taille optimale */
+label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* Design moderne des champs de saisie : arrondi, clair, avec des ombres et un focus animé */
+input {
+  padding: 12px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Effet de focus amélioré pour un champ plus interactif */
+input:focus {
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+}
+
+/* Boutons stylés avec des effets de transition au survol */
+button {
+  padding: 12px 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+
+/* Bouton primaire (Mettre à jour) */
+button.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Effet au survol pour le bouton Mettre à jour */
+button.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* Bouton secondaire (Annuler) */
+button.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Effet au survol pour le bouton Annuler */
+button.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.2);
+}
+
+/* Contenu de message d'erreur, légèrement plus subtil et bien placé */
+.error {
+  color: #dc3545;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+/* Effet de transition d'apparition du formulaire (glissement vertical) */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Si le formulaire a plusieurs colonnes (ex: pour un grand écran), les champs seront répartis horizontalement */
+@media (min-width: 768px) {
+  .form-group {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .form-group input {
+    width: calc(50% - 10px);
+  }
+
+  button {
+    width: calc(50% - 10px);
+  }
+}
+
+/* Animation de texte au chargement du formulaire */
+h2 {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

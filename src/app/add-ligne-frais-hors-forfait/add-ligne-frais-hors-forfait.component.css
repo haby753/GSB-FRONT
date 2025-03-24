@@ -1,0 +1,129 @@
+/* Fond de la page */
+body {
+  background-color: #f1f6fa; /* Gris très clair pour le fond général */
+  font-family: 'Arial', sans-serif; /* Police moderne et épurée */
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Conteneur du formulaire */
+.container {
+  background-color: #ffffff; /* Fond blanc pur pour le formulaire */
+  border-radius: 12px; /* Coins arrondis pour un effet doux */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  width: 100%;
+  max-width: 600px; /* Largeur maximale pour un formulaire optimal */
+  padding: 40px;
+  transition: all 0.3s ease-in-out;
+}
+
+.container:hover {
+  transform: translateY(-5px); /* Légère animation lors du survol */
+}
+
+/* Titre du formulaire */
+h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #003366; /* Bleu Navy élégant */
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #003366;
+  padding-bottom: 10px;
+}
+
+/* Labels des champs */
+label {
+  font-size: 1.2rem;
+  color: #003366;
+  margin-bottom: 8px;
+  font-weight: 600;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+/* Champs de formulaire */
+input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ccd9e3; /* Bordure douce et légère */
+  border-radius: 8px;
+  background-color: #f0f8ff; /* Bleu ciel clair pour les champs */
+  font-size: 1rem;
+  color: #003366;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #003366; /* Bordure bleu navy au focus */
+  background-color: #ffffff; /* Fond blanc au focus pour plus de clarté */
+}
+
+/* Placeholder */
+input::placeholder {
+  color: #A2B8C6; /* Couleur douce pour placeholder */
+}
+
+/* Bouton de soumission */
+button {
+  width: 100%;
+  padding: 15px;
+  background-color: #003366; /* Bleu Navy profond pour le bouton */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: #001f44; /* Bleu encore plus foncé au survol */
+  transform: translateY(-3px); /* Légère élévation lors du survol */
+}
+
+button:disabled {
+  background-color: #b0c4de; /* Bleu clair pour bouton désactivé */
+  cursor: not-allowed;
+}
+
+/* Validation et erreurs */
+input.ng-invalid.ng-touched {
+  border-color: #f44336; /* Rouge pour indiquer un champ invalide */
+}
+
+input.ng-valid.ng-touched {
+  border-color: #4caf50; /* Vert pour un champ valide */
+}
+
+/* Effet de focus au survol du formulaire */
+button:active {
+  transform: scale(0.98); /* Léger rétrécissement au clic */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  input,
+  button {
+    font-size: 1rem;
+  }
+}

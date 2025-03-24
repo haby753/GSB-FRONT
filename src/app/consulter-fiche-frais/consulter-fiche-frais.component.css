@@ -1,0 +1,148 @@
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+/* Card Styles */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+}
+
+.card-header {
+  background-color: #3f83cb;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 4px solid #0056b3;
+  color: white;
+  text-transform: uppercase;
+}
+
+.card-body {
+  padding: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.card-body h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #104a89;
+}
+
+/* Row Styles */
+.row {
+  margin-bottom: 20px;
+}
+
+.col-md-6 {
+  padding: 15px;
+}
+
+/* Form and Text */
+strong {
+  font-weight: 600;
+  color: #333;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 5px;
+}
+
+.spinner-border.text-primary {
+  border-top-color: #2a66a7;
+}
+
+/* Error Message */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.alert-danger p {
+  margin: 0;
+}
+
+/* Button Styles */
+button {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 30px;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #2661a0;
+  color: white;
+  border: none;
+  border-radius: 30px;
+}
+
+.btn-primary:hover {
+  background-color: #25507e;
+}
+
+/* Icon Styles */
+i {
+  margin-right: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .col-md-6 {
+    padding: 10px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-header {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

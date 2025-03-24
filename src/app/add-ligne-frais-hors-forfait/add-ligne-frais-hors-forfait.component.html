@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Ajouter une Ligne de Frais Hors Forfait</h2>
+
+  <form [formGroup]="ligneForm" (ngSubmit)="ajouterLigne()">
+    <label>Montant:</label>
+    <input type="number" formControlName="montant" required />
+
+    <label>Description:</label>
+    <input type="text" formControlName="description" required />
+
+    <label>Date:</label>
+    <input type="date" formControlName="date" required />
+
+    <button type="submit" [disabled]="ligneForm.invalid">Ajouter</button>
+  </form>
+</div>

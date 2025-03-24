@@ -1,0 +1,252 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #f2f2f2, #d8e8e4);
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 300;
+}
+
+/* Main container */
+.container {
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 50px 60px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  max-width: 1300px;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transform: scale(1);
+  animation: containerIntro 1s ease-out forwards;
+}
+
+@keyframes containerIntro {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* Header style */
+h1 {
+  font-size: 3rem;
+  color: #009688;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+h1::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(135deg, #009688, #004d40);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1::after {
+  content: '✨';
+  font-size: 3rem;
+  position: absolute;
+  top: -25px;
+  right: -30px;
+  color: #385be6;
+  opacity: 0.3;
+  animation: sparkle 2s ease infinite;
+}
+
+@keyframes sparkle {
+  0% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-10px); }
+  100% { opacity: 0.3; transform: translateY(0); }
+}
+
+/* Error message */
+.alert-danger {
+  background: #3f8ef6;
+  color: #fff;
+  padding: 20px;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  transform: translateY(-10px);
+  animation: slideIn 0.8s ease-out forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Loading message */
+.container > div {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #009688;
+  margin-top: 50px;
+  opacity: 0.8;
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  border-radius: 20px;
+  background: #f9f9f9;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+table:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  padding: 20px 25px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+th {
+  background: linear-gradient(135deg, #009688, #004d40);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+td {
+  background-color: #ffffff;
+  color: #333;
+  font-weight: 400;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+td:hover {
+  background: #f1f1f1;
+  transform: scale(1.02);
+}
+
+tr:nth-child(even) td {
+  background: #f7f7f7;
+}
+
+td:hover {
+  cursor: pointer;
+}
+
+/* Button styles */
+button {
+  background: #ff4081;
+  color: #fff;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background: #e91e63;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* "No Visitors" message */
+.text-center {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ff4081;
+  margin-top: 60px;
+  letter-spacing: 1px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 40px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  table th, table td {
+    font-size: 1rem;
+    padding: 12px 18px;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+  }
+}
+

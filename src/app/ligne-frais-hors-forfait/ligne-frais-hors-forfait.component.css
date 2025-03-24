@@ -1,0 +1,167 @@
+/* Styles généraux */
+body {
+  background: linear-gradient(135deg, #1d3b58, #73c2fb); /* Gradient bleu navy et bleu ciel */
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  animation: gradientAnimation 10s ease infinite; /* Animation du gradient */
+}
+
+/* Animation du gradient */
+@keyframes gradientAnimation {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+/* Conteneur principal */
+.container {
+  background: rgba(0, 0, 0, 0.8); /* Fond noir avec opacité élevée pour mieux contraster avec le texte */
+  border-radius: 30px;
+  padding: 40px 60px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px); /* Effet flou élégant */
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Titre principal */
+h2 {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+}
+
+/* Formulaire */
+form {
+  background: rgba(0, 0, 0, 0.7); /* Fond plus foncé pour améliorer la lisibilité */
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  font-size: 18px;
+  color: #73c2fb; /* Bleu ciel */
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Champs de saisie */
+input, select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 20px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* Effet de focus */
+input:focus, select:focus {
+  border-color: #73c2fb; /* Bordure bleu ciel au focus */
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Placeholder */
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Bouton principal */
+button {
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+  width: 100%;
+  background: linear-gradient(135deg, #1d3b58, #73c2fb); /* Gradient bleu navy et bleu ciel */
+  color: #ffffff;
+}
+
+/* Effet de survol du bouton */
+button:hover {
+  background: linear-gradient(135deg, #73c2fb, #1d3b58); /* Inverse le gradient au survol */
+}
+
+/* Tableau */
+table {
+  width: 100%;
+  margin-top: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+thead {
+  background: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  color: #73c2fb;
+}
+
+thead th {
+  padding: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+tbody tr {
+  background: rgba(97, 81, 81, 0.05);
+  transition: 0.3s;
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+td {
+  padding: 15px;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Boutons d'action */
+.btn-warning {
+  background: linear-gradient(135deg, #ffcc00, #ff6f00); /* Orange doré */
+  color: #413d3d;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #ff6f00, #ffcc00); /* Effet de survol inversé */
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff4d4d, #d32f2f); /* Rouge vibrant */
+  color: #6b5b5b;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #d32f2f, #ff4d4d); /* Effet de survol inversé */
+}

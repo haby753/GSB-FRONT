@@ -1,0 +1,119 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;  /* Arrange elements vertically */
+  height: 100vh;  /* Ensures the page takes up the full viewport height */
+  margin: 0;  /* Ensures there's no space outside the body */
+}
+
+/* Main Content */
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+  flex-direction: column; /* Center content vertically and horizontally */
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000017;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 1.25rem;
+  color: #0b0101;
+  margin-bottom: 30px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.btn-primary {
+  background-color: #ff5f5f;
+  color: white;
+  font-size: 1.2rem;
+  padding: 15px 40px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 8px 20px rgba(255, 95, 95, 0.2);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background-color: #e74c3c;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(255, 95, 95, 0.3);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #092849;  /* Fond bleu */
+  color: white;
+  padding: 10px 0;  /* Plus petit footer */
+  text-align: center;
+  font-size: 1rem;
+  width: 100%;
+  position: absolute;  /* Position absolue pour le garder en bas */
+  bottom: 0;  /* Il sera ancré tout en bas de la page */
+  left: 0;  /* Aligné à gauche */
+  right: 0;  /* Aligné à droite */
+  margin-top: auto;  /* Maintient le footer au bas même si le contenu est court */
+}
+
+footer p {
+  margin: 0;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* Ensures footer stays at the bottom when content is minimal */
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;  /* Ensures the body takes up the full viewport height */
+}
+
+footer {
+  margin-top: auto;  /* Pushes footer to the bottom of the page */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  .btn-primary {
+    padding: 12px 35px;
+  }
+
+  footer {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des États</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #b074eb, #4d67dd);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background: #6a11cb;
+            background: -webkit-linear-gradient(to right, #2575fc, #6a11cb);
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Gestion des États</h2>
+
+        <!-- Formulaire d'ajout -->
+        <form (ngSubmit)="ajouterEtat()" class="mb-4">
+            <div class="mb-3">
+                <label for="libelle" class="form-label">Libellé</label>
+
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Ajouter</button>
+        </form>
+
+        <!-- Liste des états -->
+        <ul class="list-group">
+            <li *ngFor="let etat of etats" class="list-group-item d-flex justify-content-between align-items-center">
+                {{ etat.libelle }}
+                <div>
+                    <button class="btn btn-sm btn-primary me-2" (click)="consulterEtat(etat.id)">Voir</button>
+                    <button class="btn btn-sm btn-danger" (click)="supprimerEtat(etat.id)">Supprimer</button>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Détails et modification -->
+        <div *ngIf="selectedEtat" class="mt-4 p-3 bg-light border rounded">
+            <h5>Modifier l'État</h5>
+            <label for="editLibelle" class="form-label">Libellé</label>
+
+            <button class="btn btn-success w-100" (click)="updateEtat()">Mettre à jour</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

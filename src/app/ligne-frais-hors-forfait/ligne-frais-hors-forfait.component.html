@@ -1,0 +1,66 @@
+<div class="container mt-4">
+  <h2 class="text-center">Frais Hors Forfait</h2>
+
+  <!-- Formulaire pour ajouter/modifier une ligne -->
+  <form [formGroup]="ligneForm" (ngSubmit)="submitForm()" class="mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="montant">Montant (€)</label>
+        <input type="number" class="form-control" id="montant" formControlName="montant" required>
+      </div>
+
+      <div class="col-md-4">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" formControlName="description" required>
+      </div>
+
+      <div class="col-md-4">
+        <label for="date">Date</label>
+        <input type="date" class="form-control" id="date" formControlName="date" required>
+      </div>
+
+      <div class="col-md-4 mt-3">
+        <label for="ficheFrais">Fiche de frais</label>
+        <select class="form-control" id="ficheFrais" formControlName="ficheFrais">
+          <option *ngFor="let fiche of ficheFrais" [value]="fiche.id">
+            {{ fiche.nom }}
+          </option>
+        </select>
+      </div>
+
+
+
+      <div class="col-md-4 mt-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-success w-100">
+          {{ isEditing ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Tableau des lignes de frais -->
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Montant (€)</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Fiche de frais</th>
+        <th>Visiteur</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ligne of lignesFrais">
+        <td>{{ ligne.montant }}</td>
+        <td>{{ ligne.description }}</td>
+        <td>{{ ligne.date | date:'dd/MM/yyyy' }}</td>
+        <td>{{ ligne.visiteur.nom }} {{ ligne.visiteur.prenom }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editLigne(ligne)">Modifier</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteLigne(ligne.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
