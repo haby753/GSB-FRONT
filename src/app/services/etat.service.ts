@@ -13,7 +13,7 @@ const httpOptions = {
 export class EtatService {
 
 
-  private apiURL: string = 'http://localhost:8082/api/etat'; // L'URL de l'API
+  private apiURL: string = '/api/etat'; // L'URL de l'API
 
   constructor(private http: HttpClient) { }
 

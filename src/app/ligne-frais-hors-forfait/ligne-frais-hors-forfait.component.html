@@ -1,66 +1,151 @@
-<div class="container mt-4">
-  <h2 class="text-center">Frais Hors Forfait</h2>
+<section class="outside-page">
+  <div class="outside-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Depenses exceptionnelles</span>
+      <h1>Frais hors forfait</h1>
+      <p>Declarez, controlez et mettez a jour vos depenses ponctuelles avec une interface claire, rapide et professionnelle.</p>
+    </div>
 
-  <!-- Formulaire pour ajouter/modifier une ligne -->
-  <form [formGroup]="ligneForm" (ngSubmit)="submitForm()" class="mb-3">
-    <div class="row">
-      <div class="col-md-4">
-        <label for="montant">Montant (€)</label>
-        <input type="number" class="form-control" id="montant" formControlName="montant" required>
+    <div class="hero-card">
+      <span>Mode actuel</span>
+      <strong>{{ selectedLigne ? 'Modification' : 'Creation' }}</strong>
+      <button type="button" class="hero-button" (click)="resetForm()">Nouvelle ligne</button>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-icon blue">#</span>
+      <div>
+        <small>Lignes saisies</small>
+        <strong>{{ lignes.length }}</strong>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon green">&euro;</span>
+      <div>
+        <small>Saisie</small>
+        <strong>{{ selectedLigne ? 'Edition' : 'Ajout' }}</strong>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon amber">OK</span>
+      <div>
+        <small>Statut formulaire</small>
+        <strong>{{ ligneForm.valid ? 'Pret' : 'A completer' }}</strong>
+      </div>
+    </article>
+  </div>
+
+  <div class="content-grid">
+    <section class="panel form-panel">
+      <div class="panel-header">
+        <div>
+          <span class="section-label">{{ selectedLigne ? 'Edition' : 'Nouvelle ligne' }}</span>
+          <h2>{{ selectedLigne ? 'Modifier un frais hors forfait' : 'Ajouter un frais hors forfait' }}</h2>
+        </div>
       </div>
 
-      <div class="col-md-4">
-        <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" formControlName="description" required>
-      </div>
+      <form [formGroup]="ligneForm" (ngSubmit)="submitForm()">
+        <div class="field amount-field">
+          <label for="montant">Montant</label>
+          <div class="input-with-symbol">
+            <input id="montant" type="number" formControlName="montant" min="0" step="0.01" required>
+            <span>&euro;</span>
+          </div>
+          <small *ngIf="ligneForm.get('montant')?.invalid && ligneForm.get('montant')?.touched">Montant obligatoire.</small>
+        </div>
 
-      <div class="col-md-4">
-        <label for="date">Date</label>
-        <input type="date" class="form-control" id="date" formControlName="date" required>
-      </div>
+        <div class="field description-field">
+          <label for="description">Description</label>
+          <input id="description" type="text" formControlName="description" placeholder="Ex : Taxi client, parking, achat urgent..." required>
+          <small *ngIf="ligneForm.get('description')?.invalid && ligneForm.get('description')?.touched">Description obligatoire.</small>
+        </div>
 
-      <div class="col-md-4 mt-3">
-        <label for="ficheFrais">Fiche de frais</label>
-        <select class="form-control" id="ficheFrais" formControlName="ficheFrais">
-          <option *ngFor="let fiche of ficheFrais" [value]="fiche.id">
-            {{ fiche.nom }}
-          </option>
-        </select>
-      </div>
+        <div class="field">
+          <label for="ficheFraisId">ID fiche frais</label>
+          <input id="ficheFraisId" type="number" formControlName="ficheFraisId" required>
+        </div>
 
+        <div class="field">
+          <label for="visiteurId">ID visiteur</label>
+          <input id="visiteurId" type="number" formControlName="visiteurId" required>
+        </div>
 
+        <div class="field">
+          <label for="date">Date</label>
+          <input id="date" type="date" formControlName="date" required>
+        </div>
 
-      <div class="col-md-4 mt-4 d-flex align-items-end">
-        <button type="submit" class="btn btn-success w-100">
-          {{ isEditing ? 'Modifier' : 'Ajouter' }}
-        </button>
+        <div class="form-actions">
+          <button type="submit" class="primary-button" [disabled]="ligneForm.invalid">
+            {{ selectedLigne ? 'Enregistrer' : 'Ajouter la ligne' }}
+          </button>
+          <button type="button" class="secondary-button" (click)="resetForm()">Annuler</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="panel help-panel">
+      <span class="section-label">Controle</span>
+      <h2>Justifier chaque depense</h2>
+      <p>Une ligne hors forfait doit rester lisible pour accelerer la validation et limiter les corrections.</p>
+
+      <ul>
+        <li>Montant exact TTC</li>
+        <li>Date de depense reelle</li>
+        <li>Libelle clair et comprehensible</li>
+      </ul>
+    </aside>
+  </div>
+
+  <section class="panel table-panel">
+    <div class="panel-header">
+      <div>
+        <span class="section-label">Historique</span>
+        <h2>Liste des frais hors forfait</h2>
       </div>
     </div>
-  </form>
 
-  <!-- Tableau des lignes de frais -->
-  <table class="table table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th>Montant (€)</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Fiche de frais</th>
-        <th>Visiteur</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ligne of lignesFrais">
-        <td>{{ ligne.montant }}</td>
-        <td>{{ ligne.description }}</td>
-        <td>{{ ligne.date | date:'dd/MM/yyyy' }}</td>
-        <td>{{ ligne.visiteur.nom }} {{ ligne.visiteur.prenom }}</td>
-        <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="editLigne(ligne)">Modifier</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteLigne(ligne.id)">Supprimer</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div *ngIf="lignes.length > 0; else emptyState" class="table-shell">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Montant</th>
+            <th>Description</th>
+            <th>Fiche frais</th>
+            <th>Visiteur</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ligne of lignes">
+            <td><span class="id-pill">#{{ ligne.id }}</span></td>
+            <td class="amount">{{ ligne.montant | currency:'EUR' }}</td>
+            <td class="description">{{ ligne.description }}</td>
+            <td>{{ ligne.ficheFrais }}</td>
+            <td>{{ ligne.idvisiteur }}</td>
+            <td>{{ ligne.date }}</td>
+            <td>
+              <div class="action-row">
+                <button type="button" class="action-button edit" (click)="editLigne(ligne)">Modifier</button>
+                <button type="button" class="action-button delete" (click)="deleteLigne(ligne.id)">Supprimer</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <strong>Aucune ligne hors forfait</strong>
+        <p>Les depenses exceptionnelles apparaitront ici des leur creation.</p>
+      </div>
+    </ng-template>
+  </section>
+</section>

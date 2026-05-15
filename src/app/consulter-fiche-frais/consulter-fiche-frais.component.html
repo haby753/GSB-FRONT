@@ -1,67 +1,110 @@
-<div class="container">
-  <div class="card shadow-lg mt-4">
-    <div class="card-header bg-primary text-white text-center">
-      <h3>Consulter la Fiche de Frais</h3>
+<section class="search-page">
+  <div class="search-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Recherche</span>
+      <h1>Consulter les fiches de frais</h1>
+      <p>Retrouvez rapidement une fiche par identifiant, mois, visiteur ou statut, puis consultez ses informations detaillees.</p>
     </div>
-    <div class="card-body">
-      <!-- Affichage lors du chargement -->
-      <div *ngIf="loading" class="text-center">
-        <p class="lead">Chargement des données...</p>
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Chargement...</span>
-        </div>
-      </div>
 
-      <!-- Affichage du message d'erreur -->
-      <div *ngIf="errorMessage" class="alert alert-danger">
-        <p>{{ errorMessage }}</p>
-      </div>
-
-      <!-- Affichage des données de la fiche -->
-      <div *ngIf="ficheFrais">
-        <h4 class="text-center mb-4">Détails de la fiche de frais</h4>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-              <strong>Mois :</strong>
-              <p>{{ ficheFrais.mois }}</p>
-            </div>
-            <div class="mb-3">
-              <strong>Nombre de justificatifs :</strong>
-              <p>{{ ficheFrais.nbJustificatifs }}</p>
-            </div>
-            <div class="mb-3">
-              <strong>Montant :</strong>
-              <p>{{ ficheFrais.montantvalide }} €</p>
-            </div>
-            <div class="mb-3">
-              <strong>Date :</strong>
-              <p>{{ ficheFrais.date | date: 'dd/MM/yyyy' }}</p>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="mb-3">
-              <strong>Visiteur :</strong>
-              <p>{{ ficheFrais.visiteur_id.nom }} {{ ficheFrais.visiteur_id.prenom }}</p>
-            </div>
-            <div class="mb-3">
-              <strong>État :</strong>
-              <p>{{ ficheFrais.etat_id.libelle }}</p>
-            </div>
-          </div>
-        </div>
-
-        <hr />
-
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-secondary" routerLink="/fichesfrais">
-            <i class="fa fa-arrow-left"></i> Retour à la liste
-          </button>
-
-        </div>
-      </div>
+    <div class="hero-card">
+      <span>Resultats</span>
+      <strong id="resultCount">0</strong>
+      <button type="button" class="hero-button" id="refreshFiches">Actualiser</button>
     </div>
   </div>
-</div>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-icon blue">#</span>
+      <div>
+        <small>Fiches trouvees</small>
+        <strong id="summaryCount">0</strong>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon green">&euro;</span>
+      <div>
+        <small>Total filtre</small>
+        <strong id="summaryTotal">0,00 &euro;</strong>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon amber">OK</span>
+      <div>
+        <small>Selection</small>
+        <strong id="summarySelection">Aucune</strong>
+      </div>
+    </article>
+  </div>
+
+  <div id="searchMessage"></div>
+
+  <section class="panel filter-panel">
+    <div class="panel-header">
+      <div>
+        <span class="section-label">Filtres</span>
+        <h2>Rechercher une fiche</h2>
+      </div>
+    </div>
+
+    <form class="filter-grid">
+      <div class="field">
+        <label for="recherche">Recherche globale</label>
+        <input id="recherche" type="text" name="recherche" placeholder="ID, visiteur, mois, statut...">
+      </div>
+
+      <div class="field">
+        <label for="mois">Mois</label>
+        <input id="mois" type="text" name="mois" placeholder="Ex : 2025-02">
+      </div>
+
+      <div class="field">
+        <label for="etat">Etat</label>
+        <input id="etat" type="text" name="etat" placeholder="Ex : Validee">
+      </div>
+
+      <button type="button" class="secondary-button" id="resetFilters">Reinitialiser</button>
+    </form>
+  </section>
+
+  <div class="content-grid">
+    <section class="panel table-panel">
+      <div class="panel-header">
+        <div>
+          <span class="section-label">Resultats</span>
+          <h2>Fiches de frais</h2>
+        </div>
+      </div>
+
+      <div class="table-shell" id="fichesTableShell">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Mois</th>
+              <th>Visiteur</th>
+              <th>Justificatifs</th>
+              <th>Montant</th>
+              <th>Etat</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ficheRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="panel detail-panel">
+      <div class="panel-header">
+        <div>
+          <span class="section-label">Detail</span>
+          <h2>Fiche selectionnee</h2>
+        </div>
+      </div>
+
+      <div id="ficheDetail"></div>
+    </aside>
+  </div>
+</section>

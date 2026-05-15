@@ -1,0 +1,14 @@
+<div class="login-container">
+  <h2>Se connecter</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 border-t pt-6">
+    <div class="input-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input type="text" id="username" formControlName="username" placeholder="Entrez votre nom d'utilisateur" required>
+    </div>
+    <div class="input-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" formControlName="password" placeholder="Entrez votre mot de passe" required>
+    </div>
+    <button type="submit" class="submit-btn" [disabled]="isLoading">Se connecter</button>
+  </form>
+</div>

@@ -1,19 +1,296 @@
-<app-header></app-header>
-<div class="container vh-100 d-flex justify-content-center align-items-center">
-  <div class="content-wrapper text-center" style="transform: translate(100px, -150px);">
-    <h1>Bienvenue sur l'application de gestion des frais</h1>
-    <p>Cliquez sur le bouton ci-dessous pour vous connecter</p>
-    <button class="btn btn-primary" (click)="goToConnexion()">Se connecter</button>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer bg-blue text-white">
-  <div class="container py-2">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <p class="mb-0">© 2024 - Application de gestion des frais</p>
+<div class="dashboard-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.jpg" alt="GSB">
+      <div>
+        <strong>Gestion des Frais</strong>
+        <span>Espace collaborateur</span>
       </div>
     </div>
-  </div>
-</footer>
+
+    <nav class="side-nav" aria-label="Navigation principale">
+      <a class="active" routerLink="/accueil"><span>⌂</span> Tableau de bord</a>
+      <a routerLink="/fiche-frais"><span>□</span> Mes notes de frais</a>
+      <a routerLink="/ligne-frais-hors-forfait"><span>◇</span> Frais hors forfait</a>
+      <a routerLink="/frais-forfait"><span>◱</span> Frais forfait</a>
+      <a routerLink="/visiteur"><span>◎</span> Visiteurs</a>
+      <a routerLink="/consulter-fiche-frais"><span>⌕</span> Recherche</a>
+      <a routerLink="/etat"><span>✓</span> Validation <b>3</b></a>
+    </nav>
+
+    <div class="help-card">
+      <div class="wallet">▣</div>
+      <h3>Besoin d’aide ?</h3>
+      <p>Consultez notre centre d’aide ou contactez le support.</p>
+      <button type="button">Centre d’aide</button>
+    </div>
+  </aside>
+
+  <main class="dashboard-main">
+    <header class="topbar">
+      <nav class="top-nav">
+        <a routerLink="/accueil" fragment="a-propos">A propos</a>
+        <a routerLink="/fiche-frais">Fiche de Frais</a>
+        <a routerLink="/ligne-frais-hors-forfait">Frais hors forfait</a>
+        <a routerLink="/frais-forfait">Frais forfait</a>
+        <a routerLink="/visiteur">Autres</a>
+      </nav>
+
+      <div class="account">
+        <button type="button" aria-label="Notifications">◌</button>
+        <button type="button" aria-label="Aide">?</button>
+        <div class="avatar">TM</div>
+        <div>
+          <strong>Mon compte</strong>
+          <span>Thomas Martin</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <span class="eyebrow">Bienvenue</span>
+        <h1>Bienvenue sur votre plateforme de gestion des frais</h1>
+        <p>Simplifiez la saisie, la validation et le suivi de vos dépenses professionnelles en toute sécurité.</p>
+        <div class="hero-actions">
+          <a class="primary-action" routerLink="/fiche-frais">Créer une fiche de frais</a>
+          <a class="secondary-action" routerLink="/consulter-fiche-frais">Voir mes dépenses</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="receipt"></div>
+        <div class="folder"></div>
+        <div class="spark spark-one"></div>
+        <div class="spark spark-two"></div>
+      </div>
+    </section>
+
+    <section class="about-section" id="a-propos">
+      <div class="about-intro">
+        <span class="eyebrow">A propos</span>
+        <h2>Une plateforme pensee pour simplifier la gestion des frais</h2>
+        <p>
+          L'application Gestion des Frais centralise la creation, le suivi, la validation
+          et la consultation des depenses professionnelles. Elle aide les visiteurs et les
+          responsables a travailler plus vite avec des informations claires et bien organisees.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <article>
+          <span class="about-icon">01</span>
+          <h3>Saisie rapide</h3>
+          <p>Ajoutez vos frais forfaitaires et hors forfait avec les montants, dates et descriptions utiles.</p>
+        </article>
+
+        <article>
+          <span class="about-icon">02</span>
+          <h3>Suivi clair</h3>
+          <p>Retrouvez vos fiches de frais, leurs statuts, les remboursements et les justificatifs attendus.</p>
+        </article>
+
+        <article>
+          <span class="about-icon">03</span>
+          <h3>Validation maitrisee</h3>
+          <p>Les gestionnaires peuvent controler les demandes et limiter les erreurs avant remboursement.</p>
+        </article>
+      </div>
+
+      <div class="about-details">
+        <article class="about-detail-card">
+          <h3>Objectif du site</h3>
+          <p>
+            Ce site permet de remplacer une gestion manuelle des notes de frais par un espace centralise.
+            Chaque fiche peut etre creee, consultee, corrigee et suivie depuis une seule interface.
+            L'objectif est de gagner du temps, reduire les oublis et rendre le suivi des remboursements plus fiable.
+          </p>
+        </article>
+
+        <article class="about-detail-card">
+          <h3>Pour les visiteurs</h3>
+          <p>
+            Les visiteurs peuvent saisir leurs depenses mensuelles, distinguer les frais forfaitaires des frais
+            hors forfait, ajouter les informations necessaires et suivre l'etat de leurs demandes.
+            La consultation rapide permet de retrouver une fiche par mois, statut ou collaborateur.
+          </p>
+        </article>
+
+        <article class="about-detail-card">
+          <h3>Pour les responsables</h3>
+          <p>
+            Les responsables disposent d'une vue claire pour controler les fiches, verifier les montants,
+            identifier les justificatifs manquants et valider les demandes avant remboursement.
+            Les statuts de validation aident a comprendre rapidement l'avancement de chaque fiche.
+          </p>
+        </article>
+      </div>
+
+      <div class="about-modules">
+        <div>
+          <strong>Fiches de frais</strong>
+          <span>Creation, modification, suppression et consultation des notes de frais.</span>
+        </div>
+        <div>
+          <strong>Frais forfait</strong>
+          <span>Gestion des baremes standards utilises pour les depenses recurrentes.</span>
+        </div>
+        <div>
+          <strong>Frais hors forfait</strong>
+          <span>Declaration des depenses exceptionnelles avec montant, date et description.</span>
+        </div>
+        <div>
+          <strong>Recherche</strong>
+          <span>Filtrage rapide des fiches par identifiant, mois, visiteur ou statut.</span>
+        </div>
+        <div>
+          <strong>Visiteurs</strong>
+          <span>Consultation des collaborateurs et des fiches rattachees a chaque profil.</span>
+        </div>
+        <div>
+          <strong>Validation</strong>
+          <span>Gestion des etats permettant de suivre le cycle de traitement des demandes.</span>
+        </div>
+      </div>
+
+      <div class="about-flow">
+        <div>
+          <strong>1. Creation</strong>
+          <span>Le visiteur cree sa fiche de frais.</span>
+        </div>
+        <div>
+          <strong>2. Verification</strong>
+          <span>Les lignes sont controlees avec les justificatifs.</span>
+        </div>
+        <div>
+          <strong>3. Validation</strong>
+          <span>La demande est acceptee, refusee ou corrigee.</span>
+        </div>
+        <div>
+          <strong>4. Remboursement</strong>
+          <span>Les frais valides sont transmis pour paiement.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Indicateurs">
+      <article class="stat-card">
+        <span class="stat-icon blue">□</span>
+        <div>
+          <p>Dépenses du mois</p>
+          <strong>2 450,75 €</strong>
+          <small class="positive">+12,4% vs mois dernier</small>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon amber">◷</span>
+        <div>
+          <p>Demandes en attente</p>
+          <strong>5</strong>
+          <small class="warning">À valider</small>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon green">✓</span>
+        <div>
+          <p>Remboursements validés</p>
+          <strong>8 760,20 €</strong>
+          <small class="positive">Ce mois-ci</small>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon red">!</span>
+        <div>
+          <p>Justificatifs manquants</p>
+          <strong>7</strong>
+          <small class="danger">À compléter</small>
+        </div>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel chart-panel">
+        <div class="panel-header">
+          <h2>Évolution des dépenses</h2>
+          <button type="button">6 derniers mois</button>
+        </div>
+        <div class="line-chart" aria-label="Graphique évolution des dépenses">
+          <svg viewBox="0 0 620 220" role="img">
+            <defs>
+              <linearGradient id="lineFill" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#2f80ed" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#2f80ed" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path class="area" d="M20 170 C90 155 105 125 170 104 C230 84 280 126 335 126 C395 126 435 118 480 94 C535 66 575 48 600 35 L600 210 L20 210 Z"/>
+            <path class="line" d="M20 170 C90 155 105 125 170 104 C230 84 280 126 335 126 C395 126 435 118 480 94 C535 66 575 48 600 35"/>
+            <g class="points">
+              <circle cx="20" cy="170" r="5"/><circle cx="170" cy="104" r="5"/>
+              <circle cx="335" cy="126" r="5"/><circle cx="480" cy="94" r="5"/>
+              <circle cx="600" cy="35" r="5"/>
+            </g>
+          </svg>
+          <div class="chart-labels"><span>Nov.</span><span>Déc.</span><span>Janv.</span><span>Fév.</span><span>Mars</span><span>Avr.</span></div>
+        </div>
+      </article>
+
+      <article class="panel donut-panel">
+        <h2>Dépenses par catégorie</h2>
+        <div class="donut-content">
+          <div class="donut">
+            <span>2 450,75 €<small>Total</small></span>
+          </div>
+          <ul class="legend">
+            <li><i class="transport"></i>Transports <strong>35%</strong></li>
+            <li><i class="hotel"></i>Hébergement <strong>25%</strong></li>
+            <li><i class="food"></i>Restauration <strong>20%</strong></li>
+            <li><i class="other"></i>Autres <strong>12%</strong></li>
+            <li><i class="supply"></i>Fournitures <strong>8%</strong></li>
+          </ul>
+        </div>
+      </article>
+
+      <aside class="side-column">
+        <article class="panel quick-actions">
+          <h2>Actions rapides</h2>
+          <a routerLink="/fiche-frais">Nouvelle note de frais</a>
+          <a routerLink="/add-fiche-frais">Ajouter un justificatif</a>
+          <a routerLink="/fiche-frais">Exporter PDF</a>
+          <a routerLink="/consulter-fiche-frais">Consulter mes remboursements</a>
+        </article>
+
+        <article class="panel activity">
+          <div class="panel-header">
+            <h2>Activité récente</h2>
+            <a routerLink="/fiche-frais">Voir tout</a>
+          </div>
+          <ul>
+            <li><span class="ok">✓</span><div><strong>Remboursement validé</strong><small>Note de frais NDF-2024-0187</small></div><b>+125,60 €</b></li>
+            <li><span class="wait">◷</span><div><strong>Demande en attente</strong><small>Note de frais NDF-2024-0190</small></div><b>Hier</b></li>
+            <li><span class="miss">!</span><div><strong>Justificatif manquant</strong><small>Note de frais NDF-2024-0189</small></div><b>12 mai</b></li>
+            <li><span class="up">↑</span><div><strong>Justificatif ajouté</strong><small>Train_bruxelles.pdf</small></div><b>11 mai</b></li>
+          </ul>
+        </article>
+      </aside>
+    </section>
+
+    <section class="panel recent-table">
+      <div class="panel-header">
+        <h2>Dernières notes de frais</h2>
+        <a routerLink="/fiche-frais">Voir toutes</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Collaborateur</th><th>Type</th><th>Montant</th><th>Statut</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>14/05/2024</td><td><span class="mini-avatar">TM</span>Thomas Martin</td><td>Frais hors forfait</td><td>125,60 €</td><td><span class="badge pending">En attente</span></td><td>⋮</td></tr>
+            <tr><td>10/05/2024</td><td><span class="mini-avatar">SD</span>Sophie Dubois</td><td>Frais forfait</td><td>98,40 €</td><td><span class="badge valid">Validée</span></td><td>⋮</td></tr>
+            <tr><td>08/05/2024</td><td><span class="mini-avatar">JM</span>Julien Moreau</td><td>Frais hors forfait</td><td>310,00 €</td><td><span class="badge paid">Remboursée</span></td><td>⋮</td></tr>
+            <tr><td>06/05/2024</td><td><span class="mini-avatar">CB</span>Claire Bernard</td><td>Frais forfait</td><td>75,20 €</td><td><span class="badge valid">Validée</span></td><td>⋮</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

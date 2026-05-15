@@ -11,10 +11,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class FicheFraisService {
+  // Add this before your method or in your imports
+  listeFicheFraisParVisiteur(id: number) {
+    throw new Error('Method not implemented.');
+  }
   getTotauxFraisDepartement91(): Observable<{ forfait: number; horsForfait: number; total: number }> {
     return this.http.get<{ forfait: number; horsForfait: number; total: number }>(`${this.apiURL}/totaux/91`);
   }
-  apiURL: string = 'http://localhost:8082/api/fichefrais';
+  apiURL: string = '/api/fichefrais';
 
   constructor(private http: HttpClient) {}
 

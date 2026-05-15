@@ -1,1 +1,130 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --gsb-bg: #f5f7fb;
+  --gsb-surface: #ffffff;
+  --gsb-surface-soft: #eef4fb;
+  --gsb-text: #182033;
+  --gsb-muted: #667085;
+  --gsb-primary: #1769aa;
+  --gsb-primary-dark: #0b4778;
+  --gsb-primary-soft: #dceeff;
+  --gsb-accent: #24a19c;
+  --gsb-danger: #d92d20;
+  --gsb-warning: #f79009;
+  --gsb-border: #d9e2ec;
+  --gsb-shadow: 0 14px 35px rgba(15, 23, 42, 0.10);
+  --gsb-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: var(--gsb-text);
+  background:
+    linear-gradient(180deg, rgba(23, 105, 170, 0.08), rgba(36, 161, 156, 0.05)),
+    var(--gsb-bg);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--gsb-primary);
+}
+
+a:hover {
+  color: var(--gsb-primary-dark);
+}
+
+.container {
+  max-width: 1180px;
+}
+
+.card,
+.modal-content,
+.dropdown-menu {
+  border: 1px solid var(--gsb-border);
+  border-radius: var(--gsb-radius);
+  box-shadow: var(--gsb-shadow);
+}
+
+.card-header {
+  background: var(--gsb-primary);
+  color: #fff;
+  border-bottom: 0;
+  font-weight: 600;
+}
+
+.form-control,
+.form-select,
+input,
+select,
+textarea {
+  border-radius: 8px;
+  border: 1px solid var(--gsb-border);
+}
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--gsb-primary);
+  box-shadow: 0 0 0 0.2rem rgba(23, 105, 170, 0.15);
+  outline: none;
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--gsb-primary);
+  border-color: var(--gsb-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--gsb-primary-dark);
+  border-color: var(--gsb-primary-dark);
+}
+
+.btn-danger {
+  background: var(--gsb-danger);
+  border-color: var(--gsb-danger);
+}
+
+.table {
+  overflow: hidden;
+  border-radius: var(--gsb-radius);
+  background: var(--gsb-surface);
+}
+
+.table thead th {
+  background: var(--gsb-primary);
+  color: #fff;
+  border-color: var(--gsb-primary);
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background: var(--gsb-primary-soft);
+}
+
+.alert {
+  border-radius: var(--gsb-radius);
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}

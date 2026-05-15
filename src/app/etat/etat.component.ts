@@ -1,82 +1,137 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { EtatService } from '../services/etat.service'; // Importation du service EtatService
-import { Etat } from '../models/etat'; // Importation du modèle Etat
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  NgModel, NgModelGroup, ReactiveFormsModule } from '@angular/forms';
-NgModel
- NgModelGroup
-
-
+import { FormsModule } from '@angular/forms';
+import { EtatService } from '../services/etat.service';
+import { Etat } from '../models/etat';
 
 @Component({
   selector: 'app-etat',
-   standalone:true,
-    imports: [CommonModule,ReactiveFormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './etat.component.html',
   styleUrls: ['./etat.component.css']
 })
 export class EtatComponent implements OnInit {
+  etats: Etat[] = [];
+  selectedEtat: Etat | null = null;
+  newEtat: Etat = { id: 0, libelle: '' };
+  chargement = false;
+  erreurChargement = '';
+  messageSucces = '';
 
-  etats: Etat[] = []; // Liste des états
-  selectedEtat: Etat | null = null; // État sélectionné pour la consultation ou la mise à jour
-  newEtat: Etat = { id: 0, libelle: '' }; // Nouvel état à ajouter
-
-  constructor(private etatService: EtatService) { }
+  constructor(private etatService: EtatService) {}
 
   ngOnInit(): void {
-    this.loadEtats(); // Charger la liste des états au démarrage
+    this.loadEtats();
   }
 
-  // Charger la liste des états
   loadEtats(): void {
-    this.etatService.getEtats().subscribe(
-      data => this.etats = data,
-      error => console.error('Erreur lors du chargement des états', error)
-    );
+    this.chargement = true;
+    this.erreurChargement = '';
+    this.messageSucces = '';
+
+    this.etatService.getEtats().subscribe({
+      next: etats => {
+        this.etats = Array.isArray(etats) ? etats : [];
+        this.chargement = false;
+      },
+      error: error => {
+        console.error('Erreur lors du chargement des etats', error);
+        this.etats = [];
+        this.chargement = false;
+        this.erreurChargement = "Impossible de charger les etats. Verifie que l'API /api/etat/all fonctionne.";
+      }
+    });
   }
 
-  // Consulter un état par son ID
   consulterEtat(id: number): void {
-    this.etatService.consulterEtat(id).subscribe(
-      data => this.selectedEtat = data,
-      error => console.error('Erreur lors de la consultation de l\'état', error)
-    );
+    this.messageSucces = '';
+    this.erreurChargement = '';
+
+    this.etatService.consulterEtat(id).subscribe({
+      next: etat => this.selectedEtat = { ...etat },
+      error: error => {
+        console.error("Erreur lors de la consultation de l'etat", error);
+        this.erreurChargement = "Impossible de consulter cet etat.";
+      }
+    });
   }
 
-  // Ajouter un nouvel état
   ajouterEtat(): void {
-    this.etatService.ajouterEtat(this.newEtat).subscribe(
-      data => {
-        this.etats.push(data); // Ajouter le nouvel état à la liste
-        this.newEtat = { id: 0, libelle: '' }; // Réinitialiser le formulaire
-      },
-      error => console.error('Erreur lors de l\'ajout de l\'état', error)
-    );
-  }
-
-  // Mettre à jour un état
-  updateEtat(): void {
-    if (this.selectedEtat) {
-      this.etatService.updateEtat(this.selectedEtat).subscribe(
-        data => {
-          const index = this.etats.findIndex(e => e.id === data.id);
-          if (index !== -1) {
-            this.etats[index] = data; // Mettre à jour l'état dans la liste
-          }
-          this.selectedEtat = null; // Réinitialiser l'état sélectionné
-        },
-        error => console.error('Erreur lors de la mise à jour de l\'état', error)
-      );
+    const libelle = this.newEtat.libelle.trim();
+    if (!libelle) {
+      this.erreurChargement = 'Le libelle est obligatoire.';
+      return;
     }
+
+    this.erreurChargement = '';
+    this.messageSucces = '';
+
+    this.etatService.ajouterEtat({ ...this.newEtat, libelle }).subscribe({
+      next: etat => {
+        this.etats = [...this.etats, etat];
+        this.newEtat = { id: 0, libelle: '' };
+        this.messageSucces = 'Etat ajoute avec succes.';
+      },
+      error: error => {
+        console.error("Erreur lors de l'ajout de l'etat", error);
+        this.erreurChargement = "Impossible d'ajouter cet etat.";
+      }
+    });
   }
 
-  // Supprimer un état par son ID
-  supprimerEtat(id: number): void {
-    this.etatService.supprimerEtat(id).subscribe(
-      () => {
-        this.etats = this.etats.filter(e => e.id !== id); // Supprimer l'état de la liste
+  updateEtat(): void {
+    if (!this.selectedEtat) return;
+
+    const libelle = this.selectedEtat.libelle.trim();
+    if (!libelle) {
+      this.erreurChargement = 'Le libelle est obligatoire.';
+      return;
+    }
+
+    this.erreurChargement = '';
+    this.messageSucces = '';
+
+    this.etatService.updateEtat({ ...this.selectedEtat, libelle }).subscribe({
+      next: etat => {
+        const index = this.etats.findIndex(e => e.id === etat.id);
+        if (index !== -1) {
+          this.etats[index] = etat;
+          this.etats = [...this.etats];
+        }
+        this.selectedEtat = null;
+        this.messageSucces = 'Etat mis a jour avec succes.';
       },
-      error => console.error('Erreur lors de la suppression de l\'état', error)
-    );
+      error: error => {
+        console.error("Erreur lors de la mise a jour de l'etat", error);
+        this.erreurChargement = "Impossible de mettre a jour cet etat.";
+      }
+    });
+  }
+
+  supprimerEtat(id: number): void {
+    const confirmation = confirm('Confirmer la suppression de cet etat ?');
+    if (!confirmation) return;
+
+    this.erreurChargement = '';
+    this.messageSucces = '';
+
+    this.etatService.supprimerEtat(id).subscribe({
+      next: () => {
+        this.etats = this.etats.filter(e => e.id !== id);
+        if (this.selectedEtat?.id === id) {
+          this.selectedEtat = null;
+        }
+        this.messageSucces = 'Etat supprime avec succes.';
+      },
+      error: error => {
+        console.error("Erreur lors de la suppression de l'etat", error);
+        this.erreurChargement = "Impossible de supprimer cet etat.";
+      }
+    });
+  }
+
+  annulerEdition(): void {
+    this.selectedEtat = null;
   }
 }

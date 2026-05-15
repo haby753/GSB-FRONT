@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Visiteur } from '../models/visiteur';
 
@@ -9,7 +10,7 @@ import { Visiteur } from '../models/visiteur';
 export class VisiteurService {
 
   // URL de l'API
-  private apiURL: string = 'http://localhost:8082/api/visiteur';
+  private apiURL: string = '/api/visiteur';
 
   // Options HTTP par défaut
   private httpOptions = {
@@ -27,7 +28,9 @@ export class VisiteurService {
    */
   listeVisiteur(): Observable<Visiteur[]> {
     const url = `${this.apiURL}/all`;
-    return this.http.get<Visiteur[]>(url, this.httpOptions);
+    return this.http.get<Visiteur[]>(url, this.httpOptions).pipe(
+      catchError(() => this.listeVisiteurParIds())
+    );
   }
 
   /**
@@ -68,5 +71,15 @@ export class VisiteurService {
   supprimerVisiteur(id: number): Observable<void> {
     const url = `${this.apiURL}/delete/${id}`;
     return this.http.delete<void>(url, this.httpOptions);
+  }
+
+  private listeVisiteurParIds(): Observable<Visiteur[]> {
+    const requetes = Array.from({ length: 50 }, (_, index) => index + 1).map(id =>
+      this.consulterVisiteur(id).pipe(catchError(() => of(null)))
+    );
+
+    return forkJoin(requetes).pipe(
+      map(visiteurs => visiteurs.filter((visiteur): visiteur is Visiteur => Boolean(visiteur?.id)))
+    );
   }
 }

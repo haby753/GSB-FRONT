@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { FicheFrais } from '../models/fiche-frais';
 import { Visiteur } from '../models/visiteur';
 import { Etat } from '../models/etat';
-
+import jsPDF from 'jspdf';
 import { FicheFraisService } from '../services/fiche-frais.service';
 import { VisiteurService } from '../services/visiteur.service';
 import { EtatService } from '../services/etat.service';
@@ -14,7 +14,7 @@ import { EtatService } from '../services/etat.service';
 @Component({
   selector: 'app-fiche-frais',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule,ReactiveFormsModule],
   templateUrl: './fiche-frais.component.html',
   styleUrls: ['./fiche-frais.component.css']
 })
@@ -92,15 +92,26 @@ export class FicheFraisComponent implements OnInit {
     this.selectedFiche = null;
   }
 
-  /** Ajouter une fiche de frais */
   ajouterFiche(): void {
 
+    const moisSaisi = new Date(this.fiche.mois + '-01');
+    const aujourdHui = new Date();
+
+    if (moisSaisi > aujourdHui) {
+      alert('Le mois sélectionné ne peut pas être dans le futur.');
+      return;
+    }
+
+    if (this.fiche.nbJustificatifs < 1) {
+      alert('Le nombre de justificatifs doit être supérieur ou égal à 1.');
+      return;
+    }
 
     this.ficheFraisService.ajouterFicheFrais(this.fiche).subscribe({
       next: response => {
         console.log('Fiche ajoutée avec succès', response);
         this.ajouterFicheForm = false;
-       // this.chargerFiches();
+        this.chargerFichesFrais();
       },
       error: err => {
         console.error('Erreur lors de l\'ajout de la fiche', err);
@@ -108,6 +119,18 @@ export class FicheFraisComponent implements OnInit {
     });
   }
 
+  // Ajoute les deux méthodes visuelles pour le template :
+
+  moisInvalide(): boolean {
+    if (!this.fiche.mois) return false;
+    const moisSaisi = new Date(this.fiche.mois + '-01');
+    const aujourdHui = new Date();
+    return moisSaisi > aujourdHui;
+  }
+
+  justificatifInvalide(): boolean {
+    return this.fiche.nbJustificatifs < 1;
+  }
   /** Consulter une fiche */
   consulterFiche(fiche: FicheFrais): void {
     this.selectedFiche = fiche;
@@ -119,6 +142,7 @@ export class FicheFraisComponent implements OnInit {
   /** Modifier une fiche */
   modifierFiche(fiche: FicheFrais): void {
     this.selectedFiche = { ...fiche };
+    this.fiche = { ...fiche };
     this.updateFicheForm = true;
     this.ajouterFicheForm = false;
     this.consulterFicheForm = false;
@@ -126,19 +150,20 @@ export class FicheFraisComponent implements OnInit {
 
   /** Mettre à jour une fiche */
   updateFiche(): void {
-    if (!this.selectedFiche || !this.visiteur) return;
+    if (!this.selectedFiche) return;
 
     const ficheMaj: FicheFrais = {
       ...this.selectedFiche,
-      visiteur_id: this.visiteur,
-      etat_id: this.selectedFiche.etat_id,
+      ...this.fiche,
+      visiteur_id: this.fiche.visiteur_id || this.selectedFiche.visiteur_id,
+      etat_id: this.fiche.etat_id || this.selectedFiche.etat_id,
       ligneFraisForfaits: this.selectedFiche.ligneFraisForfaits || [],
       ligneFraisHorsForfaits: this.selectedFiche.ligneFraisHorsForfaits || []
     };
 
     this.ficheFraisService.updateFicheFrais(ficheMaj).subscribe(() => {
       this.updateFicheForm = false;
-      //this.chargerFiches();
+      this.chargerFichesFrais();
     });
   }
 
@@ -147,7 +172,29 @@ export class FicheFraisComponent implements OnInit {
     if (!confirm('Confirmer la suppression de cette fiche ?')) return;
 
     this.ficheFraisService.supprimerFicheFrais(id).subscribe(() => {
-     // this.chargerFiches();
+      this.chargerFichesFrais();
     });
   }
+ /** 🎯 Nouvelle fonctionnalité : Télécharger la fiche en PDF */
+ telechargerPDF(): void {
+  if (!this.selectedFiche) {
+    alert("Aucune fiche sélectionnée !");
+    return;
+  }
+
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("Fiche de Frais", 20, 20);
+  doc.setFontSize(12);
+
+  doc.text(`Mois : ${this.selectedFiche.mois}`, 20, 40);
+  doc.text(`Date : ${this.selectedFiche.date}`, 20, 50);
+  doc.text(`Montant validé : ${this.selectedFiche.montantvalide} €`, 20, 60);
+  doc.text(`Nombre de justificatifs : ${this.selectedFiche.nbJustificatifs}`, 20, 70);
+  doc.text(`État : ${this.selectedFiche.etat_id.libelle}`, 20, 80);
+  doc.text(`Visiteur : ${this.selectedFiche.visiteur_id.prenom} ${this.selectedFiche.visiteur_id.nom}`, 20, 90);
+
+  doc.save(`FicheFrais_${this.selectedFiche.mois}.pdf`);
+}
 }

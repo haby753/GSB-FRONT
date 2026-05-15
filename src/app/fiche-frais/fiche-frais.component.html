@@ -1,127 +1,195 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <div class="container mx-auto p-6 max-w-3xl bg-white shadow-lg rounded-lg space-y-8">
-  <!-- 🎯 Boutons principaux -->
-  <div class="flex justify-between items-center">
-    <h2 class="text-2xl font-bold"> Fiches de Frais</h2>
-    <button (click)="afficherAjout()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
-      ➕ Nouvelle Fiche
-    </button>
+<section class="expense-page">
+  <div class="expense-hero">
+    <div>
+      <span class="eyebrow">Espace utilisateur</span>
+      <h1>Mes fiches de frais</h1>
+      <p>Suivez vos dépenses, ajoutez une fiche, consultez le détail et exportez vos données en PDF.</p>
+    </div>
+    <div class="hero-actions">
+      <button type="button" class="btn-primary-action" (click)="afficherAjout()">
+        <span>+</span>
+        Nouvelle fiche
+      </button>
+      <button type="button" class="btn-secondary-action" (click)="telechargerPDF()">
+        Exporter PDF
+      </button>
+    </div>
   </div>
 
-<!-- 🔽 Liste des fiches -->
-<div class="container mt-4">
-  <h3 class="text-center mb-4">  Liste fiches de frais</h3>
-
-  <!-- Si des fiches sont présentes -->
-  <div *ngIf="fichesFrais.length
-  > 0" class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Mois</th>
-          <th scope="col">Montant Valide</th>
-          <th scope="col">Justificatifs</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Pour chaque fiche, on crée une ligne -->
-        <tr *ngFor="let f of fichesFrais">
-          <td>{{ f.mois }}</td>
-          <td>💶 {{ f.montantvalide }}€</td>
-          <td>{{ f.nbJustificatifs }}</td>
-          <td>
-            <!-- Actions sur chaque fiche -->
-            <button (click)="consulterFiche(f)" class="btn btn-info btn-sm mr-2">
-              <i class="bi bi-eye"></i> Voir
-            </button>
-            <button (click)="modifierFiche(f)" class="btn btn-warning btn-sm mr-2">
-              <i class="bi bi-pencil-square"></i> Modifier
-            </button>
-            <button *ngIf="f.id !== undefined" (click)="supprimerFiche(f.id)" class="btn btn-danger btn-sm">
-              <i class="bi bi-trash"></i> Supprimer
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-icon blue">€</span>
+      <div>
+        <small>Total fiches</small>
+        <strong>{{ fichesFrais.length }}</strong>
+      </div>
+    </article>
+    <article class="summary-card">
+      <span class="summary-icon green">✓</span>
+      <div>
+        <small>Montant affiché</small>
+        <strong>{{ fiche.montantvalide | currency:'EUR' }}</strong>
+      </div>
+    </article>
+    <article class="summary-card">
+      <span class="summary-icon amber">□</span>
+      <div>
+        <small>Justificatifs</small>
+        <strong>{{ fiche.nbJustificatifs }}</strong>
+      </div>
+    </article>
   </div>
-  <!-- Si aucune fiche -->
-  <div *ngIf="fichesFrais.length === 0" class="alert alert-warning text-center">
-    Aucune fiche de frais à afficher pour le moment.
+
+  <div class="workspace-grid">
+    <section class="panel list-panel">
+      <div class="panel-header">
+        <div>
+          <span class="section-label">Historique</span>
+          <h2>Liste des fiches de frais</h2>
+        </div>
+        <button type="button" class="ghost-button" (click)="afficherAjout()">Ajouter</button>
+      </div>
+
+      <div *ngIf="fichesFrais.length > 0" class="table-shell">
+        <table>
+          <thead>
+            <tr>
+              <th>Mois</th>
+              <th>Montant validé</th>
+              <th>Justificatifs</th>
+              <th>État</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let f of fichesFrais">
+              <td>
+                <span class="month-pill">{{ f.mois }}</span>
+              </td>
+              <td class="amount">{{ f.montantvalide | currency:'EUR' }}</td>
+              <td>{{ f.nbJustificatifs }}</td>
+              <td>
+                <span class="status-pill">{{ f.etat_id.libelle }}</span>
+              </td>
+              <td>
+                <div class="action-row">
+                  <button type="button" class="icon-button view" (click)="consulterFiche(f)">Voir</button>
+                  <button type="button" class="icon-button edit" (click)="modifierFiche(f)">Modifier</button>
+                  <button *ngIf="f.id !== undefined" type="button" class="icon-button delete" (click)="supprimerFiche(f.id)">Supprimer</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="fichesFrais.length === 0" class="empty-state">
+        <strong>Aucune fiche de frais</strong>
+        <p>Créez votre première fiche pour commencer le suivi.</p>
+        <button type="button" class="btn-primary-action" (click)="afficherAjout()">Créer une fiche</button>
+      </div>
+    </section>
+
+    <aside class="right-column">
+      <section *ngIf="consulterFicheForm && selectedFiche" class="panel detail-card">
+        <span class="section-label">Fiche sélectionnée</span>
+        <h2>{{ selectedFiche.mois }}</h2>
+        <div class="detail-amount">{{ selectedFiche.montantvalide | currency:'EUR' }}</div>
+        <dl>
+          <div>
+            <dt>Date</dt>
+            <dd>{{ selectedFiche.date | date:'dd/MM/yyyy' }}</dd>
+          </div>
+          <div>
+            <dt>Justificatifs</dt>
+            <dd>{{ selectedFiche.nbJustificatifs }}</dd>
+          </div>
+          <div>
+            <dt>État</dt>
+            <dd>{{ selectedFiche.etat_id.libelle }}</dd>
+          </div>
+          <div>
+            <dt>Visiteur</dt>
+            <dd>{{ selectedFiche.visiteur_id.prenom }} {{ selectedFiche.visiteur_id.nom }}</dd>
+          </div>
+        </dl>
+        <button type="button" class="btn-primary-action full" (click)="telechargerPDF()">Télécharger en PDF</button>
+      </section>
+
+      <section class="panel tip-card" *ngIf="!consulterFicheForm">
+        <span class="section-label">Conseil</span>
+        <h2>Gardez vos justificatifs à jour</h2>
+        <p>Une fiche complète avec justificatifs permet une validation plus rapide et limite les retours administratifs.</p>
+      </section>
+    </aside>
   </div>
-</div>
 
-  <!-- ➕ Formulaire d'ajout -->
-  <form *ngIf="ajouterFicheForm" (ngSubmit)="ajouterFiche()" class="space-y-4 border-t pt-6">
-    <h3 class="text-lg font-semibold">Ajouter une Fiche</h3>
-
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <form *ngIf="ajouterFicheForm" (ngSubmit)="ajouterFiche()" class="panel expense-form">
+    <div class="panel-header">
       <div>
-        <label class="block text-sm font-medium text-gray-700">Mois :</label>
-        <input type="month" [(ngModel)]="fiche.mois" name="mois" class="w-full border p-2 rounded" required />
+        <span class="section-label">Nouvelle demande</span>
+        <h2>Ajouter une fiche</h2>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Mois</label>
+        <input type="month" [(ngModel)]="fiche.mois" name="mois" [ngClass]="{'is-invalid': moisInvalide()}" required>
+        <small *ngIf="moisInvalide()">Le mois sélectionné ne peut pas être dans le futur.</small>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Nombre de justificatifs :</label>
-        <input type="number" [(ngModel)]="fiche.nbJustificatifs" name="nbJustificatifs" min="0" class="w-full border p-2 rounded" required />
+      <div class="field">
+        <label>Nombre de justificatifs</label>
+        <input type="number" [(ngModel)]="fiche.nbJustificatifs" name="nbJustificatifs" min="0" [ngClass]="{'is-invalid': justificatifInvalide()}" required>
+        <small *ngIf="justificatifInvalide()">Vous devez fournir au moins 1 justificatif.</small>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Montant validé (€) :</label>
-        <input type="number" [(ngModel)]="fiche.montantvalide" name="montantvalide" min="0" step="0.01" class="w-full border p-2 rounded" required />
+      <div class="field">
+        <label>Montant validé (€)</label>
+        <input type="number" [(ngModel)]="fiche.montantvalide" name="montantvalide" min="0" step="0.01" required>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700">État :</label>
-        <select [(ngModel)]="fiche.etat_id" name="etat" class="w-full border p-2 rounded" required>
+      <div class="field">
+        <label>État</label>
+        <select [(ngModel)]="fiche.etat_id" name="etat" required>
           <option *ngFor="let etat of etats" [ngValue]="etat">{{ etat.libelle }}</option>
         </select>
       </div>
     </div>
 
-    <div class="pt-4">
-      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"> Ajouter </button>
+    <div class="form-actions">
+      <button type="submit" class="btn-primary-action">Ajouter la fiche</button>
     </div>
   </form>
 
-  <!-- 🔍 Consultation d'une fiche -->
-  <div *ngIf="consulterFicheForm && selectedFiche" class="border-t pt-6">
-    <h3 class="text-lg font-semibold mb-2">Fiche sélectionnée</h3>
-    <ul class="space-y-1">
-      <li><strong>Mois :</strong> {{ selectedFiche.mois }}</li>
-      <li><strong>Date :</strong> {{ selectedFiche.date | date }}</li>
-      <li><strong>Montant :</strong> {{ selectedFiche.montantvalide }} €</li>
-      <li><strong>Justificatifs :</strong> {{ selectedFiche.nbJustificatifs }}</li>
-      <li><strong>État :</strong> {{ selectedFiche.etat_id.libelle }}</li>
-    </ul>
-  </div>
-
-  <!-- ✏️ Formulaire de mise à jour -->
-  <form *ngIf="updateFicheForm" (ngSubmit)="updateFiche()" class="space-y-4 border-t pt-6">
-    <h3 class="text-lg font-semibold">Modifier la fiche</h3>
-
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <form *ngIf="updateFicheForm" (ngSubmit)="updateFiche()" class="panel expense-form">
+    <div class="panel-header">
       <div>
-        <label class="block text-sm font-medium text-gray-700">Mois :</label>
-        <input type="month" [(ngModel)]="fiche.mois" name="moisUpdate" class="w-full border p-2 rounded" required />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Nombre de justificatifs :</label>
-        <input type="number" [(ngModel)]="fiche.nbJustificatifs" name="nbJustificatifsUpdate" min="0" class="w-full border p-2 rounded" required />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Montant validé (€) :</label>
-        <input type="number" [(ngModel)]="fiche.montantvalide" name="montantvalideUpdate" min="0" step="0.01" class="w-full border p-2 rounded" required />
+        <span class="section-label">Modification</span>
+        <h2>Modifier la fiche</h2>
       </div>
     </div>
 
-    <div class="pt-4">
-      <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">💾 Enregistrer les modifications</button>
+    <div class="form-grid">
+      <div class="field">
+        <label>Mois</label>
+        <input type="month" [(ngModel)]="fiche.mois" name="moisUpdate" required>
+      </div>
+
+      <div class="field">
+        <label>Nombre de justificatifs</label>
+        <input type="number" [(ngModel)]="fiche.nbJustificatifs" name="nbJustificatifsUpdate" min="0" required>
+      </div>
+
+      <div class="field">
+        <label>Montant validé (€)</label>
+        <input type="number" [(ngModel)]="fiche.montantvalide" name="montantvalideUpdate" min="0" step="0.01" required>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary-action">Enregistrer les modifications</button>
     </div>
   </form>
-</div>
+</section>

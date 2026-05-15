@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" routerLink="/accueil">
       <img src="logo.jpg" alt="" style="height: 40px; width: 50px; margin-right: 20px;"> <!-- Chemin et style du logo -->
       Gestion des Frais
     </a>
@@ -10,21 +10,20 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item active">
-          <a class="nav-link" href="..\apropos" routerLinkActive="active">a propos</a>
+          <a class="nav-link" routerLink="/accueil" fragment="a-propos" routerLinkActive="active">A propos</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="..\fiche-frais" routerLinkActive="active">Fiche de Frais</a>
+          <a class="nav-link" routerLink="/fiche-frais" routerLinkActive="active">Fiche de Frais</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="..\ligne-frais-hors-forfait" routerLinkActive="active">Frais Hors Forfait</a>
+          <a class="nav-link" routerLink="/ligne-frais-hors-forfait" routerLinkActive="active">Frais Hors Forfait</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="..\consulter-fiche-frais" routerLinkActive="active">consulter Fiche de Frais</a>
+          <a class="nav-link" routerLink="/frais-forfait" routerLinkActive="active"> FraisForfait </a>
         </li>
-
 
 
         <li class="nav-item dropdown">

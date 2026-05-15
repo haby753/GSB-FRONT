@@ -1,1 +1,128 @@
-<p>frais-forfait works!</p>
+<section class="package-page">
+  <div class="package-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Baremes standards</span>
+      <h1>Frais forfait</h1>
+      <p>Gerez les montants de reference utilises pour les repas, nuits, transports et autres frais rembourses au forfait.</p>
+    </div>
+
+    <div class="hero-card">
+      <span>Mode actuel</span>
+      <strong>{{ selectedFrais ? 'Modification' : 'Creation' }}</strong>
+      <button type="button" class="hero-button" (click)="resetForm()">Nouveau forfait</button>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-icon blue">#</span>
+      <div>
+        <small>Forfaits actifs</small>
+        <strong>{{ fraisForfaits.length }}</strong>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon green">&euro;</span>
+      <div>
+        <small>Saisie</small>
+        <strong>{{ selectedFrais ? 'Edition' : 'Ajout' }}</strong>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon amber">OK</span>
+      <div>
+        <small>Statut formulaire</small>
+        <strong>{{ fraisForm.valid ? 'Pret' : 'A completer' }}</strong>
+      </div>
+    </article>
+  </div>
+
+  <div class="content-grid">
+    <section class="panel form-panel">
+      <div class="panel-header">
+        <div>
+          <span class="section-label">{{ selectedFrais ? 'Edition' : 'Nouveau bareme' }}</span>
+          <h2>{{ selectedFrais ? 'Modifier un frais forfait' : 'Ajouter un frais forfait' }}</h2>
+        </div>
+      </div>
+
+      <form [formGroup]="fraisForm" (ngSubmit)="submitForm()">
+        <div class="field">
+          <label for="libelle">Libelle</label>
+          <input id="libelle" type="text" formControlName="libelle" placeholder="Ex : Repas, Nuit hotel, Kilometres..." required>
+          <small *ngIf="fraisForm.get('libelle')?.invalid && fraisForm.get('libelle')?.touched">Libelle obligatoire.</small>
+        </div>
+
+        <div class="field">
+          <label for="montant">Montant</label>
+          <div class="input-with-symbol">
+            <input id="montant" type="number" formControlName="montant" min="0" step="0.01" required>
+            <span>&euro;</span>
+          </div>
+          <small *ngIf="fraisForm.get('montant')?.invalid && fraisForm.get('montant')?.touched">Montant obligatoire.</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button" [disabled]="fraisForm.invalid">
+            {{ selectedFrais ? 'Enregistrer' : 'Ajouter le forfait' }}
+          </button>
+          <button type="button" class="secondary-button" (click)="resetForm()">Reinitialiser</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="panel help-panel">
+      <span class="section-label">Controle</span>
+      <h2>Des baremes lisibles</h2>
+      <p>Un forfait clair evite les erreurs de saisie et rend les fiches de frais plus rapides a verifier.</p>
+
+      <ul>
+        <li>Nom court et explicite</li>
+        <li>Montant positif</li>
+        <li>Reference facile a identifier</li>
+      </ul>
+    </aside>
+  </div>
+
+  <section class="panel table-panel">
+    <div class="panel-header">
+      <div>
+        <span class="section-label">Catalogue</span>
+        <h2>Liste des frais forfait</h2>
+      </div>
+    </div>
+
+    <div *ngIf="fraisForfaits.length > 0; else emptyState" class="table-shell">
+      <table>
+        <thead>
+          <tr>
+            <th>Libelle</th>
+            <th>Montant</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let frais of fraisForfaits">
+            <td class="label-cell">{{ frais.libelle }}</td>
+            <td class="amount">{{ frais.montant | currency:'EUR' }}</td>
+            <td>
+              <div class="action-row">
+                <button type="button" class="action-button edit" (click)="editFrais(frais)">Modifier</button>
+                <button type="button" class="action-button delete" (click)="deleteFrais(frais.id)">Supprimer</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <strong>Aucun frais forfait</strong>
+        <p>Les baremes ajoutes apparaitront ici.</p>
+      </div>
+    </ng-template>
+  </section>
+</section>

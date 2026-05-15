@@ -12,7 +12,7 @@ const httpOptions = {
 })
 export class LigneFraisForfaitService {
 
-  private apiURL: string = 'http://localhost:8082/GsbGestionDesFrais/api/lignefraisforfait'; // URL de l'API
+  private apiURL: string = '/GsbGestionDesFrais/api/lignefraisforfait'; // URL de l'API
 
   constructor(private http: HttpClient) { }
 

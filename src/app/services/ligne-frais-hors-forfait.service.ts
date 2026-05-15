@@ -11,17 +11,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LigneFraisHorsForfaitService {
-  getLignes() {
-    throw new Error('Method not implemented.');
-  }
-  addLigne(newLigne: LigneFraisHorsForfait) {
-    throw new Error('Method not implemented.');
-  }
-  deleteLigne(id: number) {
-    throw new Error('Method not implemented.');
-  }
 
-  private apiURL: string = 'http://localhost:8082/api/lignefraishorsforfait'; // URL de l'API
+  private apiURL: string = '/api/lignefraishorsforfait'; // URL de l'API
 
   constructor(private http: HttpClient) { }
 

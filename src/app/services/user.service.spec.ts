@@ -1,17 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
-import { LigneFraisForfaitService } from './ligne-frais-forfait.service';
+import { UserService } from './user.service';
 
-describe('LigneFraisForfaitService', () => {
-  let service: LigneFraisForfaitService;
+describe('UserService', () => {
+  let service: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
     });
-    service = TestBed.inject(LigneFraisForfaitService);
+    service = TestBed.inject(UserService);
   });
 
   it('should be created', () => {
